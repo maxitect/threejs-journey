@@ -14,8 +14,6 @@ mesh.position.y = -0.6;
 mesh.position.z = 1;
 scene.add(mesh);
 
-console.log(mesh.position.length());
-
 const sizes = {
   width: 800,
   height: 600,
@@ -24,6 +22,8 @@ const sizes = {
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
 camera.position.z = 3;
 scene.add(camera);
+
+console.log(mesh.position.distanceTo(camera.position));
 
 const renderer = new THREE.WebGLRenderer({
   canvas,
