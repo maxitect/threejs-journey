@@ -31,8 +31,8 @@ const clock = new THREE.Clock();
 
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
-  console.log(elapsedTime);
-  mesh.rotation.y = elapsedTime;
+  mesh.position.y = Math.sin(elapsedTime);
+  mesh.position.x = Math.cos(elapsedTime);
   renderer.render(scene, camera);
   window.requestAnimationFrame(tick);
 };
