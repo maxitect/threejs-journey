@@ -25,6 +25,7 @@ const sizes = {
 
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
 camera.position.set(0, 0, 3);
+camera.lookAt(mesh.position);
 scene.add(camera);
 
 const renderer = new THREE.WebGLRenderer({
