@@ -10,6 +10,9 @@ const mesh = new THREE.Mesh(geometry, material);
 mesh.position.set(0.7, -0.6, 1);
 scene.add(mesh);
 
+const axesHelper = new THREE.AxesHelper();
+scene.add(axesHelper);
+
 const sizes = {
   width: 800,
   height: 600,
