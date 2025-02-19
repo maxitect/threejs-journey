@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement;
 
@@ -41,6 +42,9 @@ camera.position.set(0, 0, 3);
 camera.lookAt(mesh.position);
 scene.add(camera);
 
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+
 const renderer = new THREE.WebGLRenderer({
   canvas,
 });
@@ -54,10 +58,11 @@ const tick = () => {
   // const elapsedTime = clock.getElapsedTime();
   // mesh.rotation.y = elapsedTime;
 
-  camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 3;
-  camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3;
-  camera.position.y = cursor.y * 5;
-  camera.lookAt(new THREE.Vector3(0, 0, 0));
+  // camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 3;
+  // camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3;
+  // camera.position.y = cursor.y * 5;
+  // camera.lookAt(new THREE.Vector3(0, 0, 0));
+  controls.update();
 
   renderer.render(scene, camera);
   window.requestAnimationFrame(tick);
