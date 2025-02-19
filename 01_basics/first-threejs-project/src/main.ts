@@ -17,8 +17,17 @@ const sizes = {
   height: 600,
 };
 
-const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 100);
-camera.position.set(0, 0, 3);
+const aspectRatio = sizes.width / sizes.height;
+const camera = new THREE.OrthographicCamera(
+  -1 * aspectRatio,
+  1 * aspectRatio,
+  1,
+  -1,
+  0.1,
+  100
+);
+camera.position.set(2, 2, 2);
+camera.lookAt(mesh.position);
 scene.add(camera);
 
 const renderer = new THREE.WebGLRenderer({
@@ -28,10 +37,11 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height);
 renderer.render(scene, camera);
 
-gsap.to(mesh.position, { x: 2, duration: 1, delay: 1 });
-gsap.to(mesh.position, { x: 0, duration: 1, delay: 2 });
+const clock = new THREE.Clock();
 
 const tick = () => {
+  const elapsedTime = clock.getElapsedTime();
+  mesh.rotation.y = elapsedTime;
   renderer.render(scene, camera);
   window.requestAnimationFrame(tick);
 };
