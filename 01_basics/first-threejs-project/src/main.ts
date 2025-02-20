@@ -28,6 +28,15 @@ const sizes = {
   height: window.innerHeight,
 };
 
+window.addEventListener("resize", () => {
+  sizes.width = window.innerWidth;
+  sizes.height = window.innerHeight;
+  camera.aspect = sizes.width / sizes.height;
+  camera.updateProjectionMatrix();
+  renderer.setSize(sizes.width, sizes.height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});
+
 const aspectRatio = sizes.width / sizes.height;
 const camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 100);
 camera.position.set(0, 0, 3);
@@ -42,6 +51,7 @@ const renderer = new THREE.WebGLRenderer({
 });
 
 renderer.setSize(sizes.width, sizes.height);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.render(scene, camera);
 
 const tick = () => {
