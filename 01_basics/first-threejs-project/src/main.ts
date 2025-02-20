@@ -24,20 +24,12 @@ mesh.position.set(0, 0, 0);
 scene.add(mesh);
 
 const sizes = {
-  width: 800,
-  height: 600,
+  width: window.innerWidth,
+  height: window.innerHeight,
 };
 
 const aspectRatio = sizes.width / sizes.height;
 const camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 100);
-// const camera = new THREE.OrthographicCamera(
-//   -1 * aspectRatio,
-//   1 * aspectRatio,
-//   1,
-//   -1,
-//   0.1,
-//   100
-// );
 camera.position.set(0, 0, 3);
 camera.lookAt(mesh.position);
 scene.add(camera);
@@ -52,16 +44,7 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height);
 renderer.render(scene, camera);
 
-const clock = new THREE.Clock();
-
 const tick = () => {
-  // const elapsedTime = clock.getElapsedTime();
-  // mesh.rotation.y = elapsedTime;
-
-  // camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 3;
-  // camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3;
-  // camera.position.y = cursor.y * 5;
-  // camera.lookAt(new THREE.Vector3(0, 0, 0));
   controls.update();
 
   renderer.render(scene, camera);
