@@ -1,7 +1,9 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
-const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement;
+const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement & {
+  webkitRequestFullscreen?: () => Promise<void>;
+};
 
 const scene = new THREE.Scene();
 
@@ -35,6 +37,28 @@ window.addEventListener("resize", () => {
   camera.updateProjectionMatrix();
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});
+
+window.addEventListener("dblclick", () => {
+  const doc = document as Document & {
+    webkitFullscreenElement?: Element;
+    webkitExitFullscreen?: () => Promise<void>;
+  };
+  const fullscreenElement =
+    document.fullscreenElement || doc.webkitFullscreenElement;
+  if (!fullscreenElement) {
+    if (canvas.requestFullscreen) {
+      canvas.requestFullscreen();
+    } else if (canvas.webkitRequestFullscreen) {
+      canvas.webkitRequestFullscreen();
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (doc.webkitExitFullscreen) {
+      doc.webkitExitFullscreen();
+    }
+  }
 });
 
 const aspectRatio = sizes.width / sizes.height;
