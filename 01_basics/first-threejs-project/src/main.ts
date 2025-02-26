@@ -25,7 +25,7 @@ window.addEventListener("mousemove", (event) => {
 const geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2);
 
 const material = new THREE.MeshBasicMaterial({
-  color: 0xff0000,
+  color: 0xcbad8d,
 });
 const mesh = new THREE.Mesh(geometry, material);
 mesh.position.set(0, 0, 0);
@@ -35,6 +35,9 @@ scene.add(mesh);
 gui.add(mesh.position, "y").min(-3).max(3).step(0.01).name("elevation");
 gui.add(mesh, "visible");
 gui.add(material, "wireframe");
+gui.addColor(material, "color").onChange((value: THREE.Color) => {
+  console.log(value.getHexString());
+});
 
 const sizes = {
   width: window.innerWidth,
