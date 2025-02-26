@@ -33,6 +33,7 @@ mesh.position.set(0, 0, 0);
 scene.add(mesh);
 
 gui.add(mesh.position, "y").min(-3).max(3).step(0.01).name("elevation");
+gui.add(mesh, "visible");
 
 const sizes = {
   width: window.innerWidth,
