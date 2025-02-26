@@ -49,20 +49,22 @@ mesh.position.set(0, 0, 0);
 
 scene.add(mesh);
 
-gui.add(mesh.position, "y").min(-3).max(3).step(0.01).name("elevation");
-gui.add(mesh, "visible");
-gui.add(material, "wireframe");
-gui.addColor(debugObject, "colour").onChange(() => {
+const codeTweaks = gui.addFolder("Awesome Cube");
+
+codeTweaks.add(mesh.position, "y").min(-3).max(3).step(0.01).name("elevation");
+codeTweaks.add(mesh, "visible");
+codeTweaks.add(material, "wireframe");
+codeTweaks.addColor(debugObject, "colour").onChange(() => {
   material.color.set(debugObject.colour);
 });
 
 debugObject.spin = () => {
   gsap.to(mesh.rotation, { duration: 1, y: mesh.rotation.y + Math.PI * 2 });
 };
-gui.add(debugObject, "spin");
+codeTweaks.add(debugObject, "spin");
 
 debugObject.subdivision = 2;
-gui
+codeTweaks
   .add(debugObject, "subdivision")
   .min(1)
   .max(20)
