@@ -18,21 +18,10 @@ window.addEventListener("mousemove", (event) => {
   cursor.y = -(clientY / sizes.height - 0.5);
 });
 
-const geometry = new THREE.BufferGeometry();
-
-const count = 500;
-const positionsArray = new Float32Array(count * 3 * 3);
-
-for (let i = 0; i < count * 3 * 3; i++) {
-  positionsArray[i] = (Math.random() - 0.5) * 4;
-}
-
-const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3);
-geometry.setAttribute("position", positionsAttribute);
+const geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2);
 
 const material = new THREE.MeshBasicMaterial({
   color: 0xff0000,
-  wireframe: true,
 });
 const mesh = new THREE.Mesh(geometry, material);
 mesh.position.set(0, 0, 0);
