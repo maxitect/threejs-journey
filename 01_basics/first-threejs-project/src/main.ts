@@ -10,7 +10,20 @@ interface DebugObject {
   colour: string;
 }
 
-const gui = new GUI();
+const gui = new GUI({
+  width: 360,
+  title: "Nice debug UI",
+  closeFolders: false,
+});
+
+gui.hide();
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "h") {
+    gui.show(gui._hidden);
+  }
+});
+
 const debugObject: DebugObject = {
   colour: "",
   spin: function (): void {
@@ -50,6 +63,7 @@ mesh.position.set(0, 0, 0);
 scene.add(mesh);
 
 const codeTweaks = gui.addFolder("Awesome Cube");
+codeTweaks.close();
 
 codeTweaks.add(mesh.position, "y").min(-3).max(3).step(0.01).name("elevation");
 codeTweaks.add(mesh, "visible");
