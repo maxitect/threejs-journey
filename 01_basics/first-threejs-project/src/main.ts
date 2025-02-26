@@ -5,6 +5,7 @@ import gsap from "gsap";
 import GUI from "lil-gui";
 
 interface DebugObject {
+  subdivision: number;
   spin: () => void;
   colour: string;
 }
@@ -15,6 +16,7 @@ const debugObject: DebugObject = {
   spin: function (): void {
     throw new Error("Function not implemented.");
   },
+  subdivision: 0,
 };
 
 const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement & {
@@ -40,6 +42,7 @@ const geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2);
 
 const material = new THREE.MeshBasicMaterial({
   color: debugObject.colour,
+  wireframe: true,
 });
 const mesh = new THREE.Mesh(geometry, material);
 mesh.position.set(0, 0, 0);
@@ -57,6 +60,25 @@ debugObject.spin = () => {
   gsap.to(mesh.rotation, { duration: 1, y: mesh.rotation.y + Math.PI * 2 });
 };
 gui.add(debugObject, "spin");
+
+debugObject.subdivision = 2;
+gui
+  .add(debugObject, "subdivision")
+  .min(1)
+  .max(20)
+  .step(1)
+  .onFinishChange(() => {
+    const newGeometry = new THREE.BoxGeometry(
+      1,
+      1,
+      1,
+      debugObject.subdivision,
+      debugObject.subdivision,
+      debugObject.subdivision
+    );
+    mesh.geometry.dispose();
+    mesh.geometry = newGeometry;
+  });
 
 const sizes = {
   width: window.innerWidth,
