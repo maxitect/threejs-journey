@@ -3,7 +3,12 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 import GUI from "lil-gui";
 
+interface DebugObject {
+  colour: string;
+}
+
 const gui = new GUI();
+const debugObject: DebugObject = { colour: '' };
 
 const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement & {
   webkitRequestFullscreen?: () => Promise<void>;
@@ -22,10 +27,12 @@ window.addEventListener("mousemove", (event) => {
   cursor.y = -(clientY / sizes.height - 0.5);
 });
 
+debugObject.colour = "#cbad8d";
+
 const geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2);
 
 const material = new THREE.MeshBasicMaterial({
-  color: 0xcbad8d,
+  color: debugObject.colour,
 });
 const mesh = new THREE.Mesh(geometry, material);
 mesh.position.set(0, 0, 0);
