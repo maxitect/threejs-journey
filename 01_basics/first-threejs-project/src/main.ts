@@ -1,6 +1,10 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
+import GUI from "lil-gui";
+
+const gui = new GUI();
+
 const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement & {
   webkitRequestFullscreen?: () => Promise<void>;
 };
@@ -27,6 +31,8 @@ const mesh = new THREE.Mesh(geometry, material);
 mesh.position.set(0, 0, 0);
 
 scene.add(mesh);
+
+gui.add(mesh.position, "y").min(-3).max(3).step(0.01).name("elevation");
 
 const sizes = {
   width: window.innerWidth,
