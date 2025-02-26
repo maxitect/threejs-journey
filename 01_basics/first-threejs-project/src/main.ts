@@ -8,7 +8,7 @@ interface DebugObject {
 }
 
 const gui = new GUI();
-const debugObject: DebugObject = { colour: '' };
+const debugObject: DebugObject = { colour: "" };
 
 const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement & {
   webkitRequestFullscreen?: () => Promise<void>;
@@ -27,7 +27,7 @@ window.addEventListener("mousemove", (event) => {
   cursor.y = -(clientY / sizes.height - 0.5);
 });
 
-debugObject.colour = "#cbad8d";
+debugObject.colour = "#f5c211";
 
 const geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2);
 
@@ -42,8 +42,8 @@ scene.add(mesh);
 gui.add(mesh.position, "y").min(-3).max(3).step(0.01).name("elevation");
 gui.add(mesh, "visible");
 gui.add(material, "wireframe");
-gui.addColor(material, "color").onChange((value: THREE.Color) => {
-  console.log(value.getHexString());
+gui.addColor(debugObject, "colour").onChange(() => {
+  material.color.set(debugObject.colour);
 });
 
 const sizes = {
