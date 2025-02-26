@@ -18,8 +18,11 @@ window.addEventListener("mousemove", (event) => {
   cursor.y = -(clientY / sizes.height - 0.5);
 });
 
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+const geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2);
+const material = new THREE.MeshBasicMaterial({
+  color: 0xff0000,
+  wireframe: true,
+});
 const mesh = new THREE.Mesh(geometry, material);
 mesh.position.set(0, 0, 0);
 
