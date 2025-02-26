@@ -1,14 +1,21 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
+import gsap from "gsap";
 import GUI from "lil-gui";
 
 interface DebugObject {
+  spin: () => void;
   colour: string;
 }
 
 const gui = new GUI();
-const debugObject: DebugObject = { colour: "" };
+const debugObject: DebugObject = {
+  colour: "",
+  spin: function (): void {
+    throw new Error("Function not implemented.");
+  },
+};
 
 const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement & {
   webkitRequestFullscreen?: () => Promise<void>;
@@ -45,6 +52,11 @@ gui.add(material, "wireframe");
 gui.addColor(debugObject, "colour").onChange(() => {
   material.color.set(debugObject.colour);
 });
+
+debugObject.spin = () => {
+  gsap.to(mesh.rotation, { duration: 1, y: mesh.rotation.y + Math.PI * 2 });
+};
+gui.add(debugObject, "spin");
 
 const sizes = {
   width: window.innerWidth,
