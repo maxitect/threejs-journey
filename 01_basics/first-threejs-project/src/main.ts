@@ -4,15 +4,9 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import gsap from "gsap";
 import GUI from "lil-gui";
 
-const image = new Image();
-const texture = new THREE.Texture(image);
+const textureLoader = new THREE.TextureLoader();
+const texture = textureLoader.load("/textures/door/color.jpg");
 texture.colorSpace = THREE.SRGBColorSpace;
-
-image.onload = () => {
-  texture.needsUpdate = true;
-};
-
-image.src = "/textures/door/color.jpg";
 
 interface DebugObject {
   subdivision: number;
