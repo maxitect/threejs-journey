@@ -6,10 +6,10 @@ import GUI from "lil-gui";
 
 const image = new Image();
 const texture = new THREE.Texture(image);
-texture.colorSpace = THREE.SRGBColorSpace
+texture.colorSpace = THREE.SRGBColorSpace;
 
 image.onload = () => {
-  texture.needsUpdate = true
+  texture.needsUpdate = true;
 };
 
 image.src = "/textures/door/color.jpg";
@@ -64,8 +64,8 @@ debugObject.colour = "#f5c211";
 const geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2);
 
 const material = new THREE.MeshBasicMaterial({
+  map: texture,
   color: debugObject.colour,
-  wireframe: true,
 });
 const mesh = new THREE.Mesh(geometry, material);
 mesh.position.set(0, 0, 0);
