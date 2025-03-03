@@ -4,8 +4,34 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import gsap from "gsap";
 import GUI from "lil-gui";
 
-const textureLoader = new THREE.TextureLoader();
-const texture = textureLoader.load("/textures/door/color.jpg");
+const loadingManager = new THREE.LoadingManager();
+
+loadingManager.onStart = () => {
+  console.log("onStart");
+};
+loadingManager.onLoad = () => {
+  console.log("onLoad");
+};
+loadingManager.onProgress = () => {
+  console.log("onProgress");
+};
+loadingManager.onError = () => {
+  console.error("onError");
+};
+
+const textureLoader = new THREE.TextureLoader(loadingManager);
+const texture = textureLoader.load(
+  "/textures/door/color.jpg",
+  () => {
+    console.log("load");
+  },
+  () => {
+    console.log("progress");
+  },
+  () => {
+    console.log("load");
+  }
+);
 texture.colorSpace = THREE.SRGBColorSpace;
 
 interface DebugObject {
