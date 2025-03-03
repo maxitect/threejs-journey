@@ -20,19 +20,24 @@ loadingManager.onError = () => {
 };
 
 const textureLoader = new THREE.TextureLoader(loadingManager);
-const texture = textureLoader.load(
-  "/textures/door/color.jpg",
-  () => {
-    console.log("load");
-  },
-  () => {
-    console.log("progress");
-  },
-  () => {
-    console.log("load");
-  }
+const colorTexture = textureLoader.load("/textures/door/color.jpg");
+const alphaTexture = textureLoader.load("/textures/door/alpha.jpg");
+const heightTexture = textureLoader.load("/textures/door/height.jpg");
+const normalTexture = textureLoader.load("/textures/door/normal.jpg");
+const ambientOcclusionTexture = textureLoader.load(
+  "/textures/door/ambientOcclusion.jpg"
 );
-texture.colorSpace = THREE.SRGBColorSpace;
+const metalnessTexture = textureLoader.load("/textures/door/metalness.jpg");
+const roughnessTexture = textureLoader.load("/textures/door/roughness.jpg");
+colorTexture.colorSpace = THREE.SRGBColorSpace;
+colorTexture.repeat.x = 2;
+colorTexture.repeat.y = 3;
+colorTexture.wrapS = THREE.MirroredRepeatWrapping;
+colorTexture.wrapT = THREE.MirroredRepeatWrapping;
+colorTexture.offset.x = 0.5;
+colorTexture.offset.y = 0.5;
+
+colorTexture.rotation = Math.PI * 0.25;
 
 interface DebugObject {
   subdivision: number;
@@ -84,8 +89,7 @@ debugObject.colour = "#f5c211";
 const geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2);
 
 const material = new THREE.MeshBasicMaterial({
-  map: texture,
-  color: debugObject.colour,
+  map: colorTexture,
 });
 const mesh = new THREE.Mesh(geometry, material);
 mesh.position.set(0, 0, 0);
