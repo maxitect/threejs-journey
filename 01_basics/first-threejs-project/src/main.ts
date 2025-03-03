@@ -31,6 +31,7 @@ const metalnessTexture = textureLoader.load("/textures/door/metalness.jpg");
 const roughnessTexture = textureLoader.load("/textures/door/roughness.jpg");
 colorTexture.colorSpace = THREE.SRGBColorSpace;
 
+colorTexture.generateMipmaps = false;
 colorTexture.minFilter = THREE.NearestFilter;
 colorTexture.magFilter = THREE.NearestFilter;
 
