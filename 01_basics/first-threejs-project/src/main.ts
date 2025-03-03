@@ -20,7 +20,7 @@ loadingManager.onError = () => {
 };
 
 const textureLoader = new THREE.TextureLoader(loadingManager);
-const colorTexture = textureLoader.load("/textures/checkerboard-1024x1024.png");
+const colorTexture = textureLoader.load("/textures/minecraft.png");
 const alphaTexture = textureLoader.load("/textures/door/alpha.jpg");
 const heightTexture = textureLoader.load("/textures/door/height.jpg");
 const normalTexture = textureLoader.load("/textures/door/normal.jpg");
@@ -32,6 +32,7 @@ const roughnessTexture = textureLoader.load("/textures/door/roughness.jpg");
 colorTexture.colorSpace = THREE.SRGBColorSpace;
 
 colorTexture.minFilter = THREE.NearestFilter;
+colorTexture.magFilter = THREE.NearestFilter;
 
 interface DebugObject {
   subdivision: number;
