@@ -87,6 +87,12 @@ material.normalScale.set(0.5, 0.5);
 material.transparent = true;
 material.alphaMap = doorAlphaTexture;
 
+// material.clearcoat = 1;
+// material.clearcoatRoughness = 0;
+material.sheen = 1;
+material.sheenRoughness = 0.25;
+material.sheenColor.set(1, 1, 1);
+
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 
@@ -149,6 +155,9 @@ texturesTweaks.close();
 
 texturesTweaks.add(material, "metalness").min(0).max(1).step(0.0001);
 texturesTweaks.add(material, "roughness").min(0).max(1).step(0.0001);
+texturesTweaks.add(material, "sheen").min(0).max(1).step(0.0001);
+texturesTweaks.add(material, "sheenRoughness").min(0).max(1).step(0.0001);
+texturesTweaks.addColor(material, "sheenColor");
 
 debugObject.spin = () => {
   gsap.to(mesh.rotation, { duration: 1, y: mesh.rotation.y + Math.PI * 2 });
