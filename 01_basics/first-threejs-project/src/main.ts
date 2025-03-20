@@ -20,20 +20,21 @@ loadingManager.onError = () => {
 };
 
 const textureLoader = new THREE.TextureLoader(loadingManager);
-const colorTexture = textureLoader.load("/textures/minecraft.png");
-const alphaTexture = textureLoader.load("/textures/door/alpha.jpg");
-const heightTexture = textureLoader.load("/textures/door/height.jpg");
-const normalTexture = textureLoader.load("/textures/door/normal.jpg");
-const ambientOcclusionTexture = textureLoader.load(
+const doorColorTexture = textureLoader.load("/textures/door/color.jpg");
+const doorAlphaTexture = textureLoader.load("/textures/door/alpha.jpg");
+const doorHeightTexture = textureLoader.load("/textures/door/height.jpg");
+const doorNormalTexture = textureLoader.load("/textures/door/normal.jpg");
+const doorAmbientOcclusionTexture = textureLoader.load(
   "/textures/door/ambientOcclusion.jpg"
 );
-const metalnessTexture = textureLoader.load("/textures/door/metalness.jpg");
-const roughnessTexture = textureLoader.load("/textures/door/roughness.jpg");
-colorTexture.colorSpace = THREE.SRGBColorSpace;
-
-colorTexture.generateMipmaps = false;
-colorTexture.minFilter = THREE.NearestFilter;
-colorTexture.magFilter = THREE.NearestFilter;
+const doorMetalnessTexture = textureLoader.load("/textures/door/metalness.jpg");
+const doorRoughnessTexture = textureLoader.load("/textures/door/roughness.jpg");
+const matcapTexture = textureLoader.load("/textures/matcaps/1.png");
+const gradientTexture = textureLoader.load("/textures/gradients/3.jpg");
+doorColorTexture.colorSpace = THREE.SRGBColorSpace;
+doorColorTexture.generateMipmaps = false;
+doorColorTexture.minFilter = THREE.NearestFilter;
+doorColorTexture.magFilter = THREE.NearestFilter;
 
 interface DebugObject {
   subdivision: number;
@@ -192,7 +193,17 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.render(scene, camera);
 
+const clock = new THREE.Clock();
 const tick = () => {
+  const elapsedTime = clock.getElapsedTime();
+  sphere.rotation.y = 0.1 * elapsedTime;
+  plane.rotation.y = 0.1 * elapsedTime;
+  torus.rotation.y = 0.1 * elapsedTime;
+
+  sphere.rotation.x = 0.15 * elapsedTime;
+  plane.rotation.x = 0.15 * elapsedTime;
+  torus.rotation.x = 0.15 * elapsedTime;
+
   controls.update();
 
   renderer.render(scene, camera);
