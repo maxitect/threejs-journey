@@ -73,8 +73,19 @@ const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement & {
 const scene = new THREE.Scene();
 
 const material = new THREE.MeshStandardMaterial();
-material.metalness = 0.7;
-material.roughness = 0.2;
+material.metalness = 1;
+material.roughness = 1;
+material.map = doorColorTexture;
+material.aoMap = doorAmbientOcclusionTexture;
+material.aoMapIntensity = 1;
+material.displacementMap = doorHeightTexture;
+material.displacementScale = 0.2;
+material.metalnessMap = doorMetalnessTexture;
+material.roughnessMap = doorRoughnessTexture;
+material.normalMap = doorNormalTexture;
+material.normalScale.set(0.5, 0.5);
+material.transparent = true;
+material.alphaMap = doorAlphaTexture;
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
@@ -83,10 +94,10 @@ const pointLight = new THREE.PointLight(0xffffff, 30);
 pointLight.position.set(2, 3, 4);
 scene.add(pointLight);
 
-const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material);
+const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 64, 64), material);
 sphere.position.x = -1.5;
 
-const plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), material);
+const plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 100, 100), material);
 
 const torus = new THREE.Mesh(
   new THREE.TorusGeometry(0.3, 0.2, 16, 32),
