@@ -40,7 +40,6 @@ doorColorTexture.magFilter = THREE.NearestFilter;
 interface DebugObject {
   subdivision: number;
   spin: () => void;
-  10;
   colour: string;
 }
 
@@ -72,11 +71,9 @@ const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement & {
 
 const scene = new THREE.Scene();
 
-const material = new THREE.MeshToonMaterial();
-gradientTexture.minFilter = THREE.NearestFilter;
-gradientTexture.magFilter = THREE.NearestFilter;
-gradientTexture.generateMipmaps = false;
-material.gradientMap = gradientTexture;
+const material = new THREE.MeshStandardMaterial();
+material.metalness = 0.7;
+material.roughness = 0.2;
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
@@ -127,6 +124,12 @@ codeTweaks.add(material, "wireframe");
 codeTweaks.addColor(debugObject, "colour").onChange(() => {
   material.color.set(debugObject.colour);
 });
+
+const texturesTweaks = gui.addFolder("Controls");
+texturesTweaks.close();
+
+texturesTweaks.add(material, "metalness").min(0).max(1).step(0.0001);
+texturesTweaks.add(material, "roughness").min(0).max(1).step(0.0001);
 
 debugObject.spin = () => {
   gsap.to(mesh.rotation, { duration: 1, y: mesh.rotation.y + Math.PI * 2 });
