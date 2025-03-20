@@ -72,7 +72,9 @@ const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement & {
 
 const scene = new THREE.Scene();
 
-const material = new THREE.MeshLambertMaterial();
+const material = new THREE.MeshPhongMaterial();
+material.shininess = 100;
+material.specular = new THREE.Color(0x1188ff);
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
