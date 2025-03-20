@@ -32,6 +32,7 @@ const doorRoughnessTexture = textureLoader.load("/textures/door/roughness.jpg");
 const matcapTexture = textureLoader.load("/textures/matcaps/1.png");
 const gradientTexture = textureLoader.load("/textures/gradients/3.jpg");
 doorColorTexture.colorSpace = THREE.SRGBColorSpace;
+matcapTexture.colorSpace = THREE.SRGBColorSpace;
 doorColorTexture.generateMipmaps = false;
 doorColorTexture.minFilter = THREE.NearestFilter;
 doorColorTexture.magFilter = THREE.NearestFilter;
@@ -71,7 +72,7 @@ const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement & {
 
 const scene = new THREE.Scene();
 
-const material = new THREE.MeshBasicMaterial();
+const material = new THREE.MeshBasicMaterial({ map: doorColorTexture });
 
 const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material);
 sphere.position.x = -1.5;
