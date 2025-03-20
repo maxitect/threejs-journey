@@ -92,9 +92,12 @@ material.alphaMap = doorAlphaTexture;
 // material.sheen = 1;
 // material.sheenRoughness = 0.25;
 // material.sheenColor.set(1, 1, 1);
-material.iridescence = 1;
-material.iridescenceIOR = 1;
-material.iridescenceThicknessRange = [100, 800];
+// material.iridescence = 1;
+// material.iridescenceIOR = 1;
+// material.iridescenceThicknessRange = [100, 800];
+material.transmission = 1;
+material.ior = 1.5;
+material.thickness = 0.5;
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
@@ -158,18 +161,10 @@ texturesTweaks.close();
 
 texturesTweaks.add(material, "metalness").min(0).max(1).step(0.0001);
 texturesTweaks.add(material, "roughness").min(0).max(1).step(0.0001);
-texturesTweaks.add(material, "iridescence").min(0).max(1).step(0.0001);
-texturesTweaks.add(material, "iridescenceIOR").min(0).max(1).step(0.0001);
-texturesTweaks
-  .add(material.iridescenceThicknessRange, "0")
-  .min(0)
-  .max(1000)
-  .step(1);
-texturesTweaks
-  .add(material.iridescenceThicknessRange, "1")
-  .min(0)
-  .max(1000)
-  .step(1);
+texturesTweaks.add(material, "transmission").min(0).max(1).step(0.0001);
+texturesTweaks.add(material, "ior").min(1).max(10).step(0.0001);
+texturesTweaks.add(material, "thickness").min(1).max(10).step(0.0001);
+
 
 debugObject.spin = () => {
   gsap.to(mesh.rotation, { duration: 1, y: mesh.rotation.y + Math.PI * 2 });
