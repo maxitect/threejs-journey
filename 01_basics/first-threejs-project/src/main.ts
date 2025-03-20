@@ -3,6 +3,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 import gsap from "gsap";
 import GUI from "lil-gui";
+import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 
 const loadingManager = new THREE.LoadingManager();
 
@@ -99,6 +100,13 @@ const cursor = {
   x: 0,
   y: 0,
 };
+
+const rgbeLoader = new RGBELoader();
+rgbeLoader.load("/textures/environmentMap/2k.hdr", (environmentMap) => {
+  environmentMap.mapping = THREE.EquirectangularReflectionMapping;
+  scene.background = environmentMap;
+  scene.environment = environmentMap;
+});
 
 window.addEventListener("mousemove", (event) => {
   const { clientX, clientY } = event;
