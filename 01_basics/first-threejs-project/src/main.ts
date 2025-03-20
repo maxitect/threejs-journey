@@ -38,6 +38,7 @@ colorTexture.magFilter = THREE.NearestFilter;
 interface DebugObject {
   subdivision: number;
   spin: () => void;
+  10;
   colour: string;
 }
 
@@ -69,6 +70,21 @@ const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement & {
 
 const scene = new THREE.Scene();
 
+const material = new THREE.MeshBasicMaterial();
+
+const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material);
+sphere.position.x = -1.5;
+
+const plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), material);
+
+const torus = new THREE.Mesh(
+  new THREE.TorusGeometry(0.3, 0.2, 16, 32),
+  material
+);
+torus.position.x = 1.5;
+
+scene.add(sphere, plane, torus);
+
 const cursor = {
   x: 0,
   y: 0,
@@ -84,13 +100,10 @@ debugObject.colour = "#f5c211";
 
 const geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2);
 
-const material = new THREE.MeshBasicMaterial({
-  map: colorTexture,
-});
 const mesh = new THREE.Mesh(geometry, material);
 mesh.position.set(0, 0, 0);
 
-scene.add(mesh);
+//scene.add(mesh);
 
 const codeTweaks = gui.addFolder("Awesome Cube");
 codeTweaks.close();
