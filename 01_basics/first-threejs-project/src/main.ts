@@ -74,6 +74,13 @@ const scene = new THREE.Scene();
 
 const material = new THREE.MeshLambertMaterial();
 
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
+
+const pointLight = new THREE.PointLight(0xffffff, 30);
+pointLight.position.set(2, 3, 4);
+scene.add(pointLight);
+
 const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material);
 sphere.position.x = -1.5;
 
