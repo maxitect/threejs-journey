@@ -72,7 +72,7 @@ const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement & {
 
 const scene = new THREE.Scene();
 
-const material = new THREE.MeshStandardMaterial();
+const material = new THREE.MeshPhysicalMaterial();
 material.metalness = 1;
 material.roughness = 1;
 material.map = doorColorTexture;
