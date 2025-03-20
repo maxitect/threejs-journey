@@ -29,7 +29,7 @@ const doorAmbientOcclusionTexture = textureLoader.load(
 );
 const doorMetalnessTexture = textureLoader.load("/textures/door/metalness.jpg");
 const doorRoughnessTexture = textureLoader.load("/textures/door/roughness.jpg");
-const matcapTexture = textureLoader.load("/textures/matcaps/1.png");
+const matcapTexture = textureLoader.load("/textures/matcaps/8.png");
 const gradientTexture = textureLoader.load("/textures/gradients/3.jpg");
 doorColorTexture.colorSpace = THREE.SRGBColorSpace;
 matcapTexture.colorSpace = THREE.SRGBColorSpace;
@@ -72,7 +72,8 @@ const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement & {
 
 const scene = new THREE.Scene();
 
-const material = new THREE.MeshNormalMaterial();
+const material = new THREE.MeshMatcapMaterial();
+material.matcap = matcapTexture;
 
 const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material);
 sphere.position.x = -1.5;
